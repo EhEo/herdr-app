@@ -19,7 +19,7 @@ For drag-and-drop installation on Apple Silicon, download [Herdr.dmg](https://re
 
 ### Windows
 
-Run in PowerShell on x64 Windows with curl and tar installed (Windows 10 1803 or newer):
+Run in PowerShell on x64 or ARM64 Windows with curl and tar installed (Windows 10 1803 or newer):
 
 ```powershell
 irm https://releases.herdr.dev/app/install.ps1 | iex
@@ -110,6 +110,8 @@ For bugs, mod API requests and code contributions, see [Contributing](CONTRIBUTI
 
 Clone this repo with its submodules. Use Rust 1.95.0 and Zig 0.16.0, the versions used in [CI](.github/workflows/ci.yml).
 Linux needs the development packages listed in that workflow.
+Windows on ARM64 also needs the Visual Studio Build Tools with the ARM64 C++ tools, and LLVM (`clang` on PATH, `LIBCLANG_PATH` set).
+Zig 0.16.0's native ARM64 Windows build crashes while building libghostty-vt (exit code 0xc0000005): use the x86_64 Zig, which runs under emulation, by setting `ZIG` to its `zig.exe`.
 
 ```sh
 git clone --recurse-submodules https://github.com/herdrdev/herdr-app.git
