@@ -34,11 +34,14 @@ else
     *) echo "package: unsupported OS $(uname -s)" >&2; exit 1 ;;
   esac
   arch=$(uname -m)
+  # Git Bash on Windows ARM64 is an x64 program: uname says x86_64 there. The
+  # real CPU is in PROCESSOR_ARCHITEW6432 (set only under emulation).
+  if [[ $os == windows ]]; then arch=${PROCESSOR_ARCHITEW6432:-$arch}; fi
   bin=target/release
 fi
 case "$arch" in
-  x86_64 | amd64) arch=x86_64 ;;
-  arm64 | aarch64) arch=aarch64 ;;
+  x86_64 | amd64 | AMD64) arch=x86_64 ;;
+  arm64 | aarch64 | ARM64) arch=aarch64 ;;
   *) echo "package: unsupported CPU $arch" >&2; exit 1 ;;
 esac
 if [[ $os == macos && $arch != aarch64 ]]; then
