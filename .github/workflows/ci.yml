@@ -57,6 +57,19 @@ jobs:
       - uses: mlugg/setup-zig@d1434d08867e3ee9daa34448df10607b98908d29 # v2.2.1
         with:
           version: ${{ env.ZIG_VERSION }}
+      # Zig 0.16.0's native ARM64 Windows build crashes (0xc0000005) building
+      # libghostty-vt. The x86_64 one runs under emulation and cross-compiles fine.
+      - name: x86_64 Zig on Windows ARM64
+        if: ${{ matrix.platform == 'windows-aarch64' }}
+        shell: pwsh
+        run: |
+          $zip = Join-Path $env:RUNNER_TEMP zig-x64.zip
+          curl.exe -fsSL "https://ziglang.org/download/$env:ZIG_VERSION/zig-x86_64-windows-$env:ZIG_VERSION.zip" -o $zip
+          if ((Get-FileHash $zip -Algorithm SHA256).Hash.ToLower() -ne "68659eb5f1e4eb1437a722f1dd889c5a322c9954607f5edcf337bc3684a75a7e") { throw "zig download checksum mismatch" }
+          Expand-Archive $zip (Join-Path $env:RUNNER_TEMP zig-x64)
+          $dir = Join-Path $env:RUNNER_TEMP "zig-x64\zig-x86_64-windows-$env:ZIG_VERSION"
+          "ZIG=$dir\zig.exe" >> $env:GITHUB_ENV
+          $dir >> $env:GITHUB_PATH
       # The whole target/, like release.yml: rust-cache drops the vendored crates.
       # Keyed by what the dependencies build from, so a source-only push
       # restores an exact hit and saves nothing (no cache per commit).
