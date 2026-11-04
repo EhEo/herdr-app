@@ -1,5 +1,84 @@
 # Herdr changelog
 
+## [0.1.13] - 2026-11-04
+<!-- spotlight macos -->
+
+### New
+- **On macOS, programs in your terminals can reach your local network and use the microphone.** Herdr's core is now its own app, Herdr Core: macOS asks once for each (the network prompt may say herdr-core), click Allow. Terminals opened before this update need to be reopened once. Node, Copilot or a model server on another machine connect; voice input works. (herdr-core#100)
+- **Find in a terminal.** Cmd+F on macOS, Ctrl+Shift+F on Linux and Windows searches the screen and its history. If you've edited your keys.json, add "cmd-f": "terminal.search" (or "ctrl-shift-f") to its terminal section yourself. (#436, thanks @SOUMITRO-SAHA)
+- Terminal panes show a scroll thumb you can drag. (#428, thanks @msly)
+- Programming ligatures, off by default: set font_ligatures to true in settings. (#244, thanks @ruilopesm)
+- Mods and agents can scroll a terminal's history with terminal.scroll, and keys.json can bind a command with arguments. (#455, thanks @sQVe)
+- dsh-tui agents have their own icon and start from the new agent menu. (#335, thanks @tsonglew)
+
+### Fixed
+- Programs start at the size of their pane, so the first screen of an agent isn't drawn at the wrong width.
+- On Windows, Nerd Font icons show again.
+- On Windows, links with an = in them open in the browser.
+- On Windows, agents and the Files panel work on remote Windows machines.
+- On Windows without a GPU, Herdr uses far less CPU. (#424, thanks @kiote)
+- On Windows, OneDrive folders and paths with curly quotes open in Files. (#354, thanks @chanyang721)
+- Ctrl+[, Ctrl+I, Ctrl+M, Ctrl+_ and Ctrl+- reach programs as they do in other terminals.
+- Cmd+C reaches the program when nothing is selected. (#319, thanks @sllrs)
+- The agents list no longer breaks with "This view could not be re-rendered" on busy setups. (#485, thanks @mike-north)
+- Open worktree no longer breaks in repos with many worktrees. (#486, thanks @martin-ro)
+- Switching back to the tab from a home page gives the terminal the keyboard again. (#484, thanks @ngotchac)
+- Cmd+1 to 9 follow the order of spaces in the sidebar.
+- The pane focus ring shows only where the keyboard really is.
+- Shortcut keys work right after start, even with no space open.
+- The shortcuts overlay closes with the same key, and Ctrl+? opens it on Linux.
+- Wide fallback symbols like 🕹 fit their cell instead of covering the next one. (#468)
+- Braille dots are spaced evenly. (#351, thanks @leoscricca)
+- On Linux, no light flash when Herdr starts on a dark desktop. (#225, thanks @claytonfaria)
+- On Wayland with several seats, the mouse and keyboard work. (#123)
+- Tabs you're not looking at resize with the window. (#340, thanks @imakil195)
+- Mods see when the window loses and gets focus. (#350, thanks @ngotchac)
+- The font picker no longer crashes on some fonts. (#316, thanks @ruilopesm)
+- The command palette scrolls smoothly. (#348, thanks @patrick-xin)
+- Add machine lists hosts from Include files in ~/.ssh/config. (#328, thanks @ashrodan)
+- Selected text in mod text views stays readable.
+
+## [0.1.12] - 2026-11-02
+<!-- spotlight macos -->
+
+### New
+- **On macOS, your agents now run fully apart from the app.** Close Herdr, quit it, update it: your agents keep running. Agents already running pick this up the next time they start.
+- On macOS, the system may ask once if **herdr-core** can access a folder like Documents. That's Herdr; click Allow.
+- On macOS, Settings > Keyboard chooses what Option does: Alt, typing characters like á and €, or left or right Option as Alt.
+- A machine that was rebuilt or replaced shows "rebuilt · Connect" in the sidebar: one click connects to the new one.
+- Seen and pinned agents are shared between Herdr windows and the phone app.
+- Mods can take the keyboard, so moving focus can land on them. (#283, thanks @Osc100)
+- PiG agents have their own icon. (#299, thanks @balcsida)
+- Add machine takes a port, like `can@server:2222`.
+
+### Fixed
+- On Linux, color emoji show in color instead of blank (Fedora's emoji font).
+- Emoji like ✍️ and ❤️ take two cells and draw in color. (#287, thanks @occultsound)
+- On macOS, programs in Herdr terminals can ask for the microphone, camera and to control other apps. (#137, thanks @shivanandasai-altir; #252)
+- Agents on another machine find the commands their shell setup puts on PATH. (#262, thanks @tajchert)
+- New spaces open on the machine you're looking at.
+- Horizontal scrolling reaches programs like vim and less.
+- Clicks work in Textual apps.
+- btop's braille graphs draw without gaps.
+- Nerd Font icons use your terminal font.
+- Rounded corners and dashed lines in boxes draw like Ghostty. (#255, thanks @occultsound)
+- Herdr uses less CPU with many busy agents.
+- A big project no longer makes the folder watcher burn a CPU core. (#263, #257)
+- Mod pictures and icons update when their file is saved.
+- Moving focus back into a split returns to the pane you came from. (#304, thanks @sundarshahi)
+- Unnamed tabs show what their agent is doing in the agents list. (#281, thanks @sundarshahi)
+- A new tab with no space open starts a space. (#303, thanks @sundarshahi)
+- Files marks the files inside a new folder, and opens folder symlinks. (#309, thanks @Nagell; #301, thanks @azaeldrm)
+- Lists in mods follow the zoom. (#296, thanks @Calonca)
+- The + menu shows your agents right away. (#251, thanks @shellscape)
+- Grok shows its own icon. (#293, thanks @Zynoo71)
+- A malformed command can't close the tab you're on. (#297, thanks @chanyang721)
+- On Linux, Ctrl+Insert and Shift+Insert copy and paste in new installs; add them to your keys.json to get them on an existing one. (#258, thanks @dr-moreira)
+- In full screen on macOS, the sidebar header lines up. (#261, thanks @runkids)
+- On Windows, file names in Korean, Chinese and other languages show and open in Files. (#236, thanks @loonslo)
+- On Windows, Esc then Ctrl+C reach the program as two keys. (#162, thanks @JJLiebig)
+- In Git Bash on Windows, the installer points to the PowerShell one. (#238, thanks @sundarshahi)
+
 ## [0.1.11] - 2026-10-31
 
 ### Fixed
